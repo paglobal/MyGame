@@ -180,12 +180,12 @@ function letTheMagicBegin() {
   // backgroundGradient.addColorStop(0, "rgba(23, 30, 38, 0.5)");
   // backgroundGradient.addColorStop(1, "rgba(63,84,107, 0.5)");
 
-  if (
-    shipNose.x == canvas.width / 2 &&
-    shipNose.y == canvas.height / 2 &&
-    angle == 0
-  ) {
-    freshlySpawned = true;
+  if (shipNose.x == canvas.width / 2) {
+    if (shipNose.y == canvas.height / 2) {
+      if (angle == 0) {
+        freshlySpawned = true;
+      }
+    }
   }
 
   //Clear screen with trail effect
