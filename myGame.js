@@ -186,6 +186,8 @@ function letTheMagicBegin() {
     angle == 0
   ) {
     freshlySpawned = true;
+  } else {
+    freshlySpawned = false;
   }
 
   //Clear screen with trail effect
