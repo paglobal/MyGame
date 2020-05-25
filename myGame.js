@@ -385,6 +385,8 @@ function letTheMagicBegin() {
     score = 0;
     lives = 7;
     angle = 0;
+    shipNose.x = canvasWidth / 2;
+    shipNose.y = canvasHeight / 2;
     shipNose.vel = { x: 0, y: 0 };
     bullets.splice(0, bullets.length);
     asteroids.splice(0, asteroids.length);

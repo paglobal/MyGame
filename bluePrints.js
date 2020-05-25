@@ -33,9 +33,8 @@ class ShipNose {
     }
     this.x = canvasWidth / 2;
     this.y = canvasHeight / 2;
+    this.vel = { x: 0, y: 0 };
     angle = 0;
-    this.velX = 0;
-    this.velY = 0;
     lives -= 1;
   }
 
