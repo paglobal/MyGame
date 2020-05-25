@@ -95,6 +95,12 @@ function instantiate() {
     if (e.keyCode === 32) {
       e.preventDefault();
     }
+    if (e.keyCode === 38) {
+      e.preventDefault();
+    }
+    if (e.keyCode === 40) {
+      e.preventDefault();
+    }
     if (e.keyCode === 87) {
       freshlySpawned = false;
     }
@@ -185,19 +191,19 @@ function letTheMagicBegin() {
   //Update ship
   //Update ship linear displacement
   if (!isPaused) {
-    movingForward = keys[87];
-    movingBackward = keys[83];
+    movingForward = keys[38];
+    movingBackward = keys[40];
 
     //Update ship angular displacement
     radians = (angle / Math.PI) * 180;
-    if (keys[68]) {
+    if (keys[39]) {
       freshlySpawned = false;
       shipNose.rotate(1);
       shipFragments.forEach((shipFragment) => {
         shipFragment.staticRadians -= 2 * shipFragment.staticAngularVel;
       });
     }
-    if (keys[65]) {
+    if (keys[37]) {
       freshlySpawned = false;
       shipNose.rotate(-1);
     }
