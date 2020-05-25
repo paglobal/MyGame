@@ -257,8 +257,8 @@ function letTheMagicBegin() {
       if (!isPaused) {
         bullets.push(new Bullet(2, randomColor(bulletColors), 5));
       }
-      if (bullets.length >= 20) {
-        bullets.splice(20, bullets.length);
+      if (bullets.length >= 30) {
+        bullets.splice(30, bullets.length);
       }
     }
     if (bullets.length !== 0) {
