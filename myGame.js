@@ -120,29 +120,34 @@ function instantiate() {
   window.setInterval(spawnAsteroid, 2000);
 
   function spawnAsteroid() {
-    if (asteroids.length < 30) {
-      for (let i = 0; i < 1; i++) {
-        const radius =
-          Math.floor(Math.random() * 3 + 1) * randomIntFromRange(5, 17);
-        let x = randomIntFromRange(canvas.width, canvas.width + 4 * radius);
-        let y = randomIntFromRange(canvas.height, canvas.height + 4 * radius);
-        const color = randomColor(asteroidColors);
+    if (!isPaused) {
+      if (asteroids.length < 30) {
+        for (let i = 0; i < 1; i++) {
+          const radius =
+            Math.floor(Math.random() * 3 + 1) * randomIntFromRange(5, 17);
+          let x = randomIntFromRange(canvas.width, canvas.width + 4 * radius);
+          let y = randomIntFromRange(canvas.height, canvas.height + 4 * radius);
+          const color = randomColor(asteroidColors);
 
-        if (i !== 0) {
-          for (let j = 0; j < asteroids.length; j++) {
-            if (
-              distance(x, y, asteroids[j].x, asteroids[j].y) -
-                (radius + asteroids[j].radius) <
-              0
-            ) {
-              x = randomIntFromRange(canvas.width, canvas.width + 4 * radius);
-              y = randomIntFromRange(canvas.height, canvas.height + 4 * radius);
-              j = -1;
+          if (i !== 0) {
+            for (let j = 0; j < asteroids.length; j++) {
+              if (
+                distance(x, y, asteroids[j].x, asteroids[j].y) -
+                  (radius + asteroids[j].radius) <
+                0
+              ) {
+                x = randomIntFromRange(canvas.width, canvas.width + 4 * radius);
+                y = randomIntFromRange(
+                  canvas.height,
+                  canvas.height + 4 * radius
+                );
+                j = -1;
+              }
             }
           }
-        }
 
-        asteroids.push(new Asteroid(x, y, radius, color));
+          asteroids.push(new Asteroid(x, y, radius, color));
+        }
       }
     }
   }
