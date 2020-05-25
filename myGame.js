@@ -218,6 +218,18 @@ function letTheMagicBegin() {
       if (!isPaused) {
         shipFragment.update();
       } else {
+        //Move points over time
+        shipFragment.staticRadians += shipFragment.staticAngularVel;
+        //Circular motion
+        shipFragment.x1 =
+          shipNose.x +
+          Math.sin(shipFragment.staticRadians) *
+            shipFragment.distanceFromCenter;
+        shipFragment.y1 =
+          shipNose.y +
+          Math.cos(shipFragment.staticRadians) *
+            shipFragment.distanceFromCenter;
+
         shipFragment.draw();
       }
     }
