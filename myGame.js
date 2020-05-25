@@ -13,7 +13,7 @@ let explosionBitSize = 0.8;
 let shipExplosionBitNumber = 20;
 let explosionBitNumber = 8;
 let score = 0;
-let lives = 3;
+let lives = 7;
 let movingForward = false;
 let movingBackward = false;
 let angle = 0;
@@ -37,7 +37,7 @@ function instantiate() {
   canvas.width = canvasWidth;
   canvas.height = canvasHeight;
   colors = ["#2185C5", "#7ECEFD", "#FFCAD4", "#FFF6E5"];
-  bulletColors = ["#FFFFFF", "#FF7F66", "#B0D0D3", "#C08497"];
+  bulletColors = ["#FF7F66", "#B0D0D3", "#C08497", "#FFFFFF"];
   asteroidColors = [
     "blue",
     "red",
@@ -155,7 +155,7 @@ function DrawLifeShips() {
 
   //Draw life ships
   for (let i = 0; i < lives; i++) {
-    c.fillStyle = colors[i];
+    c.fillStyle = [...colors, ...asteroidColors][i];
     c.beginPath();
     c.moveTo(startX, startY);
     for (let j = 0; j < points.length; j++) {
@@ -371,7 +371,7 @@ function letTheMagicBegin() {
     freshlySpawned = true;
     shipNose.visible = true;
     score = 0;
-    lives = 3;
+    lives = 7;
     shipNose.vel = { x: 0, y: 0 };
     bullets.splice(0, bullets.length);
     asteroids.splice(0, asteroids.length);
