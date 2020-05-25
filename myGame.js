@@ -180,7 +180,11 @@ function letTheMagicBegin() {
   // backgroundGradient.addColorStop(0, "rgba(23, 30, 38, 0.5)");
   // backgroundGradient.addColorStop(1, "rgba(63,84,107, 0.5)");
 
-  if (shipNose.x == canvas.width / 2 && shipNose.y == canvas.height / 2) {
+  if (
+    shipNose.x == canvas.width / 2 &&
+    shipNose.y == canvas.height / 2 &&
+    angle == 0
+  ) {
     freshlySpawned = true;
   }
 
@@ -378,6 +382,7 @@ function letTheMagicBegin() {
     shipNose.visible = true;
     score = 0;
     lives = 7;
+    angle = 0;
     shipNose.vel = { x: 0, y: 0 };
     bullets.splice(0, bullets.length);
     asteroids.splice(0, asteroids.length);
