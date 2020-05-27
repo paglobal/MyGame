@@ -23,7 +23,9 @@ let colors;
 let bulletColors;
 let asteroidColors;
 let radians;
-let freshlySpawned;
+let freshlySpawned = true;
+let freshlySpawnedDuration = 300;
+let freshlySpawnedTicker = 0;
 let isPaused = true;
 
 //Game instantiation
@@ -100,9 +102,6 @@ function instantiate() {
     }
     if (e.keyCode === 40) {
       e.preventDefault();
-    }
-    if (e.keyCode === 87) {
-      freshlySpawned = false;
     }
   });
   addEventListener("keyup", function (e) {
@@ -185,16 +184,6 @@ function letTheMagicBegin() {
   // backgroundGradient.addColorStop(0, "rgba(23, 30, 38, 0.5)");
   // backgroundGradient.addColorStop(1, "rgba(63,84,107, 0.5)");
 
-  if (
-    shipNose.x == canvas.width / 2 &&
-    shipNose.y == canvas.height / 2 &&
-    angle == 0
-  ) {
-    freshlySpawned = true;
-  } else {
-    freshlySpawned = false;
-  }
-
   //Clear screen with trail effect
   c.fillStyle = "rgba(255, 255, 255, 0.08)";
   c.fillRect(0, 0, canvas.width, canvas.height);
@@ -208,14 +197,12 @@ function letTheMagicBegin() {
     //Update ship angular displacement
     radians = (angle / Math.PI) * 180;
     if (keys[39]) {
-      freshlySpawned = false;
       shipNose.rotate(1);
       shipFragments.forEach((shipFragment) => {
         shipFragment.staticRadians -= 2 * shipFragment.staticAngularVel;
       });
     }
     if (keys[37]) {
-      freshlySpawned = false;
       shipNose.rotate(-1);
     }
   }
@@ -270,12 +257,14 @@ function letTheMagicBegin() {
   //Draw And Update Bullets
   if (shipNose.visible) {
     if (keys[32]) {
-      freshlySpawned = false;
       if (!isPaused) {
         bullets.push(new Bullet(2, randomColor(bulletColors), 5));
       }
       if (bullets.length >= 30) {
         bullets.splice(30, bullets.length);
+      }
+      if (freshlySpawned === true) {
+        freshlySpawned = false;
       }
     }
     if (bullets.length !== 0) {
@@ -377,24 +366,38 @@ function letTheMagicBegin() {
     }
   }
 
-  //Handle lives and score display, game over, reset, pause and play
-  //Handle lives
+  //Handle lives and score display, game over, reset, pause, play and freshlySpawned
+  //Handle lives and game over
   if (lives <= 0) {
     shipNose.visible = false;
+    bullets.splice(0, bullets.length);
+    asteroids.splice(0, asteroids.length);
+  }
+
+  //Handle freshlySpawned
+  if (freshlySpawnedTicker === freshlySpawnedDuration) {
+    freshlySpawned = false;
+    freshlySpawnedTicker = 0;
+  }
+
+  if (freshlySpawned === true) {
+    freshlySpawnedTicker++;
   }
 
   //Handle reset
   if (keys[82]) {
-    freshlySpawned = true;
-    shipNose.visible = true;
-    score = 0;
-    lives = 7;
-    angle = 0;
-    shipNose.x = canvasWidth / 2;
-    shipNose.y = canvasHeight / 2;
-    shipNose.vel = { x: 0, y: 0 };
-    bullets.splice(0, bullets.length);
-    asteroids.splice(0, asteroids.length);
+    if (!isPaused) {
+      freshlySpawned = true;
+      shipNose.visible = true;
+      score = 0;
+      lives = 7;
+      angle = 0;
+      shipNose.x = canvasWidth / 2;
+      shipNose.y = canvasHeight / 2;
+      shipNose.vel = { x: 0, y: 0 };
+      bullets.splice(0, bullets.length);
+      asteroids.splice(0, asteroids.length);
+    }
   }
 
   //Handle pause

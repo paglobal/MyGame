@@ -31,6 +31,7 @@ class ShipNose {
         )
       );
     }
+    freshlySpawned = true;
     this.x = canvasWidth / 2;
     this.y = canvasHeight / 2;
     this.vel = { x: 0, y: 0 };
